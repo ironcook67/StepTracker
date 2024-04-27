@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D7B56D32BDC795400EB94F3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7B56D22BDC795400EB94F3 /* README.md */; };
 		4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */; };
 		4DCBC75A2BDC6D1600538B2B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBC7592BDC6D1600538B2B /* ContentView.swift */; };
 		4DCBC75C2BDC6D1700538B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D7B56D22BDC795400EB94F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4DCBC7542BDC6D1600538B2B /* StepTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackerApp.swift; sourceTree = "<group>"; };
 		4DCBC7592BDC6D1600538B2B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,7 @@
 		4DCBC74B2BDC6D1600538B2B = {
 			isa = PBXGroup;
 			children = (
+				4D7B56D22BDC795400EB94F3 /* README.md */,
 				4DCBC7562BDC6D1600538B2B /* StepTracker */,
 				4DCBC7552BDC6D1600538B2B /* Products */,
 			);
@@ -127,6 +130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D7B56D32BDC795400EB94F3 /* README.md in Resources */,
 				4DCBC7602BDC6D1700538B2B /* Preview Assets.xcassets in Resources */,
 				4DCBC75C2BDC6D1700538B2B /* Assets.xcassets in Resources */,
 			);
