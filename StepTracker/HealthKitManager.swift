@@ -32,10 +32,13 @@ import Observation
                                                                options: .cumulativeSum,
                                                                anchorDate: endDate,
                                                                intervalComponents: .init(day: 1))
+        do {
+            let stepsCounts = try await stepsQuery.result(for: store)
+            stepData = stepsCounts.statistics().map {
+                .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+            }
+        } catch {
 
-        let stepsCounts = try! await stepsQuery.result(for: store)
-        stepData = stepsCounts.statistics().map {
-            .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
         }
     }
 
@@ -52,9 +55,13 @@ import Observation
                                                                  anchorDate: endDate,
                                                                  intervalComponents: .init(day: 1))
 
-        let weightsCounts = try! await weightsQuery.result(for: store)
-        weightData = weightsCounts.statistics().map {
-            .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+        do {
+            let weightsCounts = try await weightsQuery.result(for: store)
+            weightData = weightsCounts.statistics().map {
+                .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+            }
+        } catch {
+
         }
     }
 
