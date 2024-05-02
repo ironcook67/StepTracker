@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D5528E12BE33C89005494E3 /* StepBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5528E02BE33C89005494E3 /* StepBarChart.swift */; };
 		4D8163A82BDEE50A00022705 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163A62BDEE50A00022705 /* DashboardView.swift */; };
 		4D8163A92BDEE50A00022705 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163A72BDEE50A00022705 /* HealthDataListView.swift */; };
 		4D8163AB2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */; };
@@ -18,10 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D5528E02BE33C89005494E3 /* StepBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepBarChart.swift; sourceTree = "<group>"; };
 		4D8163A62BDEE50A00022705 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		4D8163A72BDEE50A00022705 /* HealthDataListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 		4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
-		4D8163AC2BDEEEC900022705 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4D8163AC2BDEEEC900022705 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8163AD2BDEEF8B00022705 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		4D8163AF2BDF60EA00022705 /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
 		4DCBC7542BDC6D1600538B2B /* StepTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +44,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D5528E22BE342BC005494E3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				4D8163A62BDEE50A00022705 /* DashboardView.swift */,
+				4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */,
+				4D8163A72BDEE50A00022705 /* HealthDataListView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		4D5528E32BE342CE005494E3 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				4D5528E02BE33C89005494E3 /* StepBarChart.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		4D5528E42BE342E5005494E3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4D8163AF2BDF60EA00022705 /* HealthMetric.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4D5528E52BE342EA005494E3 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4D8163AD2BDEEF8B00022705 /* HealthKitManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		4DCBC74B2BDC6D1600538B2B = {
 			isa = PBXGroup;
 			children = (
@@ -62,14 +98,13 @@
 			isa = PBXGroup;
 			children = (
 				4D8163AC2BDEEEC900022705 /* Info.plist */,
-				4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */,
-				4D8163A62BDEE50A00022705 /* DashboardView.swift */,
-				4D8163A72BDEE50A00022705 /* HealthDataListView.swift */,
-				4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */,
-				4D8163AD2BDEEF8B00022705 /* HealthKitManager.swift */,
-				4D8163AF2BDF60EA00022705 /* HealthMetric.swift */,
-				4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */,
 				4DCBC75D2BDC6D1700538B2B /* StepTracker.entitlements */,
+				4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */,
+				4D5528E52BE342EA005494E3 /* Managers */,
+				4D5528E42BE342E5005494E3 /* Model */,
+				4D5528E32BE342CE005494E3 /* Charts */,
+				4D5528E22BE342BC005494E3 /* Screens */,
+				4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */,
 				4DCBC75E2BDC6D1700538B2B /* Preview Content */,
 			);
 			path = StepTracker;
@@ -155,6 +190,7 @@
 			files = (
 				4D8163A82BDEE50A00022705 /* DashboardView.swift in Sources */,
 				4D8163A92BDEE50A00022705 /* HealthDataListView.swift in Sources */,
+				4D5528E12BE33C89005494E3 /* StepBarChart.swift in Sources */,
 				4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */,
 				4D8163AE2BDEEF8B00022705 /* HealthKitManager.swift in Sources */,
 				4D8163AB2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift in Sources */,
