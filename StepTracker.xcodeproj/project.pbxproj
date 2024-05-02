@@ -17,6 +17,7 @@
 		4DB90F402BE3452600F66161 /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F3F2BE3452600F66161 /* ChartDataTypes.swift */; };
 		4DB90F432BE345B500F66161 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F422BE345B500F66161 /* Date+Ext.swift */; };
 		4DB90F462BE34B3300F66161 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 4DB90F452BE34B3300F66161 /* Algorithms */; };
+		4DB90F482BE34D7D00F66161 /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F472BE34D7D00F66161 /* StepPieChart.swift */; };
 		4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */; };
 		4DCBC75C2BDC6D1700538B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */; };
 		4DCBC7602BDC6D1700538B2B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75F2BDC6D1700538B2B /* Preview Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		4DB90F3D2BE344F600F66161 /* ChartMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMath.swift; sourceTree = "<group>"; };
 		4DB90F3F2BE3452600F66161 /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
 		4DB90F422BE345B500F66161 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		4DB90F472BE34D7D00F66161 /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
 		4DCBC7542BDC6D1600538B2B /* StepTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StepTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackerApp.swift; sourceTree = "<group>"; };
 		4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				4D5528E02BE33C89005494E3 /* StepBarChart.swift */,
+				4DB90F472BE34D7D00F66161 /* StepPieChart.swift */,
 				4DB90F3D2BE344F600F66161 /* ChartMath.swift */,
 				4DB90F3F2BE3452600F66161 /* ChartDataTypes.swift */,
 			);
@@ -222,6 +225,7 @@
 				4DB90F3E2BE344F600F66161 /* ChartMath.swift in Sources */,
 				4D8163B02BDF60EA00022705 /* HealthMetric.swift in Sources */,
 				4DB90F402BE3452600F66161 /* ChartDataTypes.swift in Sources */,
+				4DB90F482BE34D7D00F66161 /* StepPieChart.swift in Sources */,
 				4DB90F432BE345B500F66161 /* Date+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
