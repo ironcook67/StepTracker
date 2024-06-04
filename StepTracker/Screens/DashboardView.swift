@@ -54,6 +54,9 @@ struct DashboardView: View {
             }
             .padding()
             .task {
+//                if hasSeenPermissionPriming {
+//                    await hkManager.addSimulatorData()
+//                }
                 await hkManager.fetchStepCount()
                 await hkManager.fetchWeights()
                 await hkManager.fetchWeightForDifferentials()
@@ -63,11 +66,11 @@ struct DashboardView: View {
             .navigationDestination(for: HealthMetricContext.self) { metric in
                 HealthDataListView(metric: metric)
             }
-            .sheet(isPresented: $isShowingPermissionPrimingSheet) {
-                // fetch health dfata
-            } content: {
+            .sheet(isPresented: $isShowingPermissionPrimingSheet, onDismiss: {
+                // fetch health data
+            }, content: {
                 HealthKitPermissionPrimingView(hasSeen: $hasSeenPermissionPriming)
-            }
+            })
 
         }
         .tint(isSteps ? .pink : .indigo)

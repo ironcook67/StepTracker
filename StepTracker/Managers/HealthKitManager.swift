@@ -86,25 +86,37 @@ import Observation
 
         }
     }
+    
+    func addStepData(for date: Date, value: Double) async {
+        let stepQuantity = HKQuantity(unit: .count(), doubleValue: value)
+        let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: date, end: date)
+        try! await store.save(stepSample)
+    }
 
-        func addSimulatorData() async {
-            var mockSamples: [HKQuantitySample] = []
-    
-            for i in 0..<1 {
-                let stepQuantity = HKQuantity(unit: .count(), doubleValue: .random(in: 4_000...20_000))
-                let weightQuanity = HKQuantity(unit: .pound(), doubleValue: .random(in: (160 + Double(i/3)...165 + Double(i/3))))
-    
-                let startDate = Calendar.current.date(byAdding: .day, value: -i, to: .now)!
-                let endDate = Calendar.current.date(byAdding: .second, value: 1, to: startDate)!
-    
-                let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: startDate, end: endDate)
-                let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuanity, start: startDate, end: endDate)
-    
-                mockSamples.append(stepSample)
-                mockSamples.append(weightSample)
-            }
-    
-            try! await store.save(mockSamples)
-            print("✅ Dummy Data sent up")
+    func addweightData(for date: Date, value: Double) async {
+        let weightQuanity = HKQuantity(unit: .pound(), doubleValue: value)
+        let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuanity, start: date, end: date)
+        try! await store.save(weightSample)
+    }
+
+    func addSimulatorData() async {
+        var mockSamples: [HKQuantitySample] = []
+
+        for i in 0..<29 {
+            let stepQuantity = HKQuantity(unit: .count(), doubleValue: .random(in: 4_000...20_000))
+            let weightQuanity = HKQuantity(unit: .pound(), doubleValue: .random(in: (160 + Double(i/3)...165 + Double(i/3))))
+
+            let startDate = Calendar.current.date(byAdding: .day, value: -i, to: .now)!
+            let endDate = Calendar.current.date(byAdding: .second, value: 1, to: startDate)!
+
+            let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: startDate, end: endDate)
+            let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuanity, start: startDate, end: endDate)
+
+            mockSamples.append(stepSample)
+            mockSamples.append(weightSample)
         }
+
+        try! await store.save(mockSamples)
+        print("✅ Dummy Data sent up")
+    }
 }
