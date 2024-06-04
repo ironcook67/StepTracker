@@ -14,6 +14,11 @@ struct ChartMath {
         let sortedByWeekday = metric.sorted { $0.date.weekdayInt < $1.date.weekdayInt }
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
 
+        guard !weekdayArray.isEmpty else {
+//            assert(!weekdayArray.isEmpty, "Missing data in averageWeekdayCount")
+            return []
+        }
+
         var weekdayChartData: [WeekdayChartData] = []
 
         for array in weekdayArray {
