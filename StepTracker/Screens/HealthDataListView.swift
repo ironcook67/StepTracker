@@ -58,12 +58,12 @@ struct HealthDataListView: View {
                     Button("Add Data") {
                         Task {
                             if metric == .steps {
-                                await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd) ?? 0)
-                                await hkManager.fetchStepCount()
+                                try! await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                try! await hkManager.fetchStepCount()
                             } else {
-                                await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd) ?? 0)
-                                await hkManager.fetchWeights()
-                                await hkManager.fetchWeightForDifferentials()
+                                try! await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                try! await hkManager.fetchWeights()
+                                try! await hkManager.fetchWeightForDifferentials()
                             }
                             isShowingAddData = false
                         }
