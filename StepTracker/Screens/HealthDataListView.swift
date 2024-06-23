@@ -11,8 +11,13 @@ struct HealthDataListView: View {
     @Environment(HealthKitManager.self) private var hkManager
 
     @State private var isShowingAddData = false
+    @State private var isShowingAlert = false
+    @State private var writeError: STError = .noData
+
     @State private var addDataDate: Date = .now
     @State private var valueToAdd: String = ""
+
+    @Binding var isShowingPermissionPriming: Bool
 
     var metric: HealthMetricContext
 
@@ -53,19 +58,54 @@ struct HealthDataListView: View {
                 }
             }
             .navigationTitle(metric.title)
+            .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
+                switch writeError {
+                case .authNotDetermined, .noData, .unableToCompleteRequest:
+                    EmptyView()
+                case .sharingDenied(let quantityType):
+                    Button("Settings") {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+
+                    Button("Cancel", role: .cancel) { }
+                }
+            } message: { writeError in
+                Text(writeError.failureReason)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
                         Task {
                             if metric == .steps {
-                                await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd) ?? 0)
-                                await hkManager.fetchStepCount()
+                                do {
+                                    try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                    try await hkManager.fetchStepCount()
+                                    isShowingAddData = false
+                                } catch STError.authNotDetermined {
+                                    isShowingPermissionPriming = true
+                                } catch STError.sharingDenied(let quantityType) {
+                                    writeError = .sharingDenied(quantityType: quantityType)
+                                    isShowingAlert = true
+                                } catch {
+                                    writeError = .unableToCompleteRequest
+                                    isShowingAlert = true
+                                }
                             } else {
-                                await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd) ?? 0)
-                                await hkManager.fetchWeights()
-                                await hkManager.fetchWeightForDifferentials()
+                                do {
+                                    try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                    try await hkManager.fetchWeights()
+                                    try await hkManager.fetchWeightForDifferentials()
+                                    isShowingAddData = false
+                                } catch STError.authNotDetermined {
+                                    isShowingPermissionPriming = true
+                                } catch STError.sharingDenied(let quantityType) {
+                                    writeError = .sharingDenied(quantityType: quantityType)
+                                    isShowingAlert = true
+                                } catch {
+                                    writeError = .unableToCompleteRequest
+                                    isShowingAlert = true
+                                }
                             }
-                            isShowingAddData = false
                         }
                     }
                 }
@@ -82,7 +122,7 @@ struct HealthDataListView: View {
 
 #Preview {
     NavigationStack {
-        HealthDataListView(metric: .weight)
+        HealthDataListView(isShowingPermissionPriming: .constant(false), metric: .weight)
             .environment(HealthKitManager())
     }
 }
