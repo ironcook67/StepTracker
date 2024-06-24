@@ -24,6 +24,7 @@
 		4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */; };
 		4DCBC75C2BDC6D1700538B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */; };
 		4DCBC7602BDC6D1700538B2B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75F2BDC6D1700538B2B /* Preview Assets.xcassets */; };
+		4DE35D662C28F0110065055D /* ChartEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE35D652C28F0110065055D /* ChartEmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DCBC75D2BDC6D1700538B2B /* StepTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StepTracker.entitlements; sourceTree = "<group>"; };
 		4DCBC75F2BDC6D1700538B2B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4DE35D652C28F0110065055D /* ChartEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartEmptyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				4D2682042C030D2F003AB06F /* WeightDiffBarChart.swift */,
 				4DB90F3D2BE344F600F66161 /* ChartMath.swift */,
 				4DB90F3F2BE3452600F66161 /* ChartDataTypes.swift */,
+				4DE35D652C28F0110065055D /* ChartEmptyView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				4D2682012C030C65003AB06F /* MockData.swift in Sources */,
 				4D8163A92BDEE50A00022705 /* HealthDataListView.swift in Sources */,
 				4D5528E12BE33C89005494E3 /* StepBarChart.swift in Sources */,
+				4DE35D662C28F0110065055D /* ChartEmptyView.swift in Sources */,
 				4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */,
 				4D8163AE2BDEEF8B00022705 /* HealthKitManager.swift in Sources */,
 				4D8163AB2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift in Sources */,
