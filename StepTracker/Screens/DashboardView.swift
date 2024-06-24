@@ -55,7 +55,7 @@ struct DashboardView: View {
             }
             .padding()
             .task {
-// await hkManager.addSimulatorData()
+//              await hkManager.addSimulatorData()
                 do {
                     try await hkManager.fetchStepCount()
                     try await hkManager.fetchWeights()
