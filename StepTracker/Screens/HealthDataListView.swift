@@ -60,9 +60,9 @@ struct HealthDataListView: View {
             .navigationTitle(metric.title)
             .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
                 switch writeError {
-                case .authNotDetermined, .noData, .unableToCompleteRequest:
+                case .authNotDetermined, .invalidValue, .noData, .unableToCompleteRequest:
                     EmptyView()
-                case .sharingDenied(let quantityType):
+                case .sharingDenied(_):
                     Button("Settings") {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                     }
@@ -75,10 +75,17 @@ struct HealthDataListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
+                        guard let valueToAdd = Double(valueToAdd) else {
+                            writeError = .invalidValue
+                            isShowingAlert = true
+                            return
+                        }
                         Task {
                             if metric == .steps {
                                 do {
-                                    try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                    // TODO: Input Validation. Use the onEditingChange in the TextField to turn the text
+                                    // red if there is an invlid number entered. 
+                                    try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd))
                                     try await hkManager.fetchStepCount()
                                     isShowingAddData = false
                                 } catch STError.authNotDetermined {
@@ -92,7 +99,7 @@ struct HealthDataListView: View {
                                 }
                             } else {
                                 do {
-                                    try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd) ?? 0)
+                                    try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd))
                                     try await hkManager.fetchWeights()
                                     try await hkManager.fetchWeightForDifferentials()
                                     isShowingAddData = false
