@@ -12,9 +12,9 @@ struct StepPieChart: View {
     @State private var rawSelectedChartValue: Double? = 0
     @State private var selectedDay: Date?
 
-    var chartData: [WeekdayChartData]
+    var chartData: [DateValueChartData]
 
-    var selectedWeekday: WeekdayChartData? {
+    var selectedWeekday: DateValueChartData? {
         guard let rawSelectedChartValue else { return nil }
         var total = 0.0
         return chartData.first {
@@ -24,18 +24,13 @@ struct StepPieChart: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Label("Averages", systemImage: "calendar")
-                    .font(.title3.bold())
-                    .foregroundStyle(.pink)
+        let chartConfig = ChartContainerConfiguration(title: "Averages",
+                                                      symbol: "calendar",
+                                                      subtitle: "Last 28 Days",
+                                                      context: .steps,
+                                                      isNav: false)
 
-                Text("Last 28 Days")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            .padding(.bottom, 12)
-
+        ChartContainer(config: chartConfig) {
             if chartData.isEmpty {
                 ChartEmptyView(systemImageName: "chart.pie", title: "No Data",
                                description: "There is no step count data from the Health App")
@@ -79,20 +74,14 @@ struct StepPieChart: View {
                         }
                     }
                 }
-
             }
         }
-        .padding()
         .sensoryFeedback(.selection, trigger: selectedDay)
         .onChange(of: selectedWeekday) { oldValue, newValue in
             guard let oldValue, let newValue else { return }
             if oldValue.date.weekdayInt != newValue.date.weekdayInt {
                 selectedDay = newValue.date
             }
-        }
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.secondarySystemBackground))
         }
     }
 }
