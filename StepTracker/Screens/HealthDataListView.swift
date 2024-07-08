@@ -81,37 +81,27 @@ struct HealthDataListView: View {
                             return
                         }
                         Task {
-                            if metric == .steps {
-                                do {
-                                    // TODO: Input Validation. Use the onEditingChange in the TextField to turn the text
-                                    // red if there is an invlid number entered. 
+                            do {
+                                if metric == .steps{
                                     try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd))
-                                    try await hkManager.fetchStepCount()
-                                    isShowingAddData = false
-                                } catch STError.authNotDetermined {
-                                    isShowingPermissionPriming = true
-                                } catch STError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
-                                }
-                            } else {
-                                do {
+                                    hkManager.stepData = try await hkManager.fetchStepCount()
+                                } else {
                                     try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd))
-                                    try await hkManager.fetchWeights()
-                                    try await hkManager.fetchWeightForDifferentials()
-                                    isShowingAddData = false
-                                } catch STError.authNotDetermined {
-                                    isShowingPermissionPriming = true
-                                } catch STError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
+
+                                    async let weightsForLineChart = hkManager.fetchWeights(daysBack: 28)
+                                    async let weightsForDiffChart = hkManager.fetchWeights(daysBack: 29)
+
+                                    hkManager.weightData = try await weightsForLineChart
+                                    hkManager.weightDiffData =  try await weightsForDiffChart
                                 }
+
+                                isShowingAddData = false
+                            } catch STError.sharingDenied(let quantityType) {
+                                writeError = .sharingDenied(quantityType: quantityType)
+                                isShowingAlert = true
+                            } catch {
+                                writeError = .unableToCompleteRequest
+                                isShowingAlert = true
                             }
                         }
                     }

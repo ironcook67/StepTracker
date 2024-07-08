@@ -11,6 +11,8 @@
 		4D2682032C030D0B003AB06F /* WeightLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2682022C030D0B003AB06F /* WeightLineChart.swift */; };
 		4D2682052C030D2F003AB06F /* WeightDiffBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2682042C030D2F003AB06F /* WeightDiffBarChart.swift */; };
 		4D5528E12BE33C89005494E3 /* StepBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5528E02BE33C89005494E3 /* StepBarChart.swift */; };
+		4D6EE2FA2C3C7EBB00CF0459 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6EE2F92C3C7EBB00CF0459 /* STError.swift */; };
+		4D6EE2FD2C3C9C7500CF0459 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6EE2FC2C3C9C7500CF0459 /* Algorithms */; };
 		4D8163A82BDEE50A00022705 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163A62BDEE50A00022705 /* DashboardView.swift */; };
 		4D8163A92BDEE50A00022705 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163A72BDEE50A00022705 /* HealthDataListView.swift */; };
 		4D8163AB2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */; };
@@ -19,7 +21,6 @@
 		4DB90F3E2BE344F600F66161 /* ChartMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F3D2BE344F600F66161 /* ChartMath.swift */; };
 		4DB90F402BE3452600F66161 /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F3F2BE3452600F66161 /* ChartDataTypes.swift */; };
 		4DB90F432BE345B500F66161 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F422BE345B500F66161 /* Date+Ext.swift */; };
-		4DB90F462BE34B3300F66161 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 4DB90F452BE34B3300F66161 /* Algorithms */; };
 		4DB90F482BE34D7D00F66161 /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB90F472BE34D7D00F66161 /* StepPieChart.swift */; };
 		4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBC7572BDC6D1600538B2B /* StepTrackerApp.swift */; };
 		4DCBC75C2BDC6D1700538B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBC75B2BDC6D1700538B2B /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		4D2682022C030D0B003AB06F /* WeightLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightLineChart.swift; sourceTree = "<group>"; };
 		4D2682042C030D2F003AB06F /* WeightDiffBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffBarChart.swift; sourceTree = "<group>"; };
 		4D5528E02BE33C89005494E3 /* StepBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepBarChart.swift; sourceTree = "<group>"; };
+		4D6EE2F92C3C7EBB00CF0459 /* STError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STError.swift; sourceTree = "<group>"; };
 		4D8163A62BDEE50A00022705 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		4D8163A72BDEE50A00022705 /* HealthDataListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 		4D8163AA2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
@@ -61,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DB90F462BE34B3300F66161 /* Algorithms in Frameworks */,
+				4D6EE2FD2C3C9C7500CF0459 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +75,7 @@
 			children = (
 				4DB90F412BE3459E00F66161 /* Extensions */,
 				4D2682002C030C65003AB06F /* MockData.swift */,
+				4D6EE2F92C3C7EBB00CF0459 /* STError.swift */,
 			);
 			path = Utilitites;
 			sourceTree = "<group>";
@@ -186,7 +189,7 @@
 			);
 			name = StepTracker;
 			packageProductDependencies = (
-				4DB90F452BE34B3300F66161 /* Algorithms */,
+				4D6EE2FC2C3C9C7500CF0459 /* Algorithms */,
 			);
 			productName = StepTracker;
 			productReference = 4DCBC7542BDC6D1600538B2B /* StepTracker.app */;
@@ -217,7 +220,7 @@
 			);
 			mainGroup = 4DCBC74B2BDC6D1600538B2B;
 			packageReferences = (
-				4DB90F442BE34B3300F66161 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				4D6EE2FB2C3C9C7500CF0459 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 4DCBC7552BDC6D1600538B2B /* Products */;
 			projectDirPath = "";
@@ -254,6 +257,7 @@
 				4D5528E12BE33C89005494E3 /* StepBarChart.swift in Sources */,
 				4DE35D662C28F0110065055D /* ChartEmptyView.swift in Sources */,
 				4DCBC7582BDC6D1600538B2B /* StepTrackerApp.swift in Sources */,
+				4D6EE2FA2C3C7EBB00CF0459 /* STError.swift in Sources */,
 				4D8163AE2BDEEF8B00022705 /* HealthKitManager.swift in Sources */,
 				4DF478092C3780100088E5B9 /* ChartHelper.swift in Sources */,
 				4D8163AB2BDEE9BF00022705 /* HealthKitPermissionPrimingView.swift in Sources */,
@@ -489,7 +493,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4DB90F442BE34B3300F66161 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+		4D6EE2FB2C3C9C7500CF0459 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
 			requirement = {
@@ -500,9 +504,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4DB90F452BE34B3300F66161 /* Algorithms */ = {
+		4D6EE2FC2C3C9C7500CF0459 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4DB90F442BE34B3300F66161 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			package = 4D6EE2FB2C3C9C7500CF0459 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
