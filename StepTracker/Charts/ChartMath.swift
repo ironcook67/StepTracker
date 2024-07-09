@@ -11,13 +11,10 @@ import Algorithms
 struct ChartMath {
 
     static func averageWeekdayCount(for metric: [HealthMetric]) -> [DateValueChartData] {
-        let sortedByWeekday = metric.sorted { $0.date.weekdayInt < $1.date.weekdayInt }
+        let sortedByWeekday = metric.sorted(using: KeyPathComparator(\.date.weekdayInt))
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
 
-        guard !weekdayArray.isEmpty else {
-//            assert(!weekdayArray.isEmpty, "Missing data in averageWeekdayCount")
-            return []
-        }
+        guard !weekdayArray.isEmpty else { return [] }
 
         var weekdayChartData: [DateValueChartData] = []
 
@@ -43,7 +40,7 @@ struct ChartMath {
             diffValues.append((date: date, value: diff))
         }
 
-        let sortedByWeekday = diffValues.sorted { $0.date.weekdayInt < $1.date.weekdayInt }
+        let sortedByWeekday = diffValues.sorted(using: KeyPathComparator(\.date.weekdayInt))
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
 
         var weekdayChartData: [DateValueChartData] = []
