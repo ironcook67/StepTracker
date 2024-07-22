@@ -49,6 +49,9 @@ struct HealthKitPermissionPrimingView: View {
                                  trigger: isShowingHealthKitPermission) { result in
             switch result {
             case .success(_):
+//                Task {
+//                    await hkManager.addSimulatorData()
+//                }
                 dismiss()
             case .failure(_):
                 // handle error later

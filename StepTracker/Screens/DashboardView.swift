@@ -55,7 +55,6 @@ struct DashboardView: View {
             }
             .padding()
             .task {
-//              await hkManager.addSimulatorData()
                 fetchHealthData()
             }
             .navigationTitle("Dashboard")

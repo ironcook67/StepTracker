@@ -5,23 +5,23 @@
 //  Created by Chon Torres on 7/4/24.
 //
 
-struct ChartContainerConfiguration {
-    let title: String
-    let symbol: String
-    let subtitle: String
-    let context: HealthMetricContext
-    let isNav: Bool
-}
-
 import SwiftUI
 
+enum ChartType {
+    case stepBar(average: Int)
+    case stepWeekdayPie
+    case weightLine(average: Double)
+    case weightDiffBar
+}
+
 struct ChartContainer<Content: View>: View {
-    let config: ChartContainerConfiguration
+
+    let chartType: ChartType
     @ViewBuilder var content: () -> Content
 
     var body: some View {
         VStack(alignment: .leading) {
-            if config.isNav {
+            if isNav {
                 navigationLinkView
             } else {
                 titleView
@@ -38,7 +38,7 @@ struct ChartContainer<Content: View>: View {
     }
 
     var navigationLinkView: some View {
-        NavigationLink(value: config.context) {
+        NavigationLink(value: context) {
             HStack {
                 titleView
                 Spacer()
@@ -51,23 +51,74 @@ struct ChartContainer<Content: View>: View {
 
     var titleView: some View {
         VStack(alignment: .leading) {
-            Label(config.title, systemImage: config.symbol)
+            Label(title, systemImage: symbol)
                 .font(.title3.bold())
-                .foregroundStyle(config.context == .steps ? .pink : .indigo)
+                .foregroundStyle(context == .steps ? .pink : .indigo)
 
-            Text(config.subtitle)
+            Text(subtitle)
                 .font(.caption)
                 .foregroundColor(.secondary)
+        }
+    }
+
+    var isNav: Bool {
+        switch chartType {
+        case .stepBar(_), .weightLine(_):
+            true
+        case .stepWeekdayPie, .weightDiffBar:
+            false
+        }
+    }
+
+    var context: HealthMetricContext {
+        switch chartType {
+        case .stepBar(_), .stepWeekdayPie:
+            .steps
+        case .weightLine(_), .weightDiffBar:
+            .weight
+        }
+    }
+
+    var title: String {
+        switch chartType {
+        case .stepBar(_):
+            "Steps"
+        case .stepWeekdayPie:
+            "Averages"
+        case .weightLine(_):
+            "Weight"
+        case .weightDiffBar:
+            "Average"
+        }
+    }
+
+    var subtitle: String {
+        switch chartType {
+        case .stepBar(let averageSteps):
+            "Avg: \(averageSteps.formatted()) Steps"
+        case .stepWeekdayPie:
+            "Last 28 Days"
+        case .weightLine(let averageWeight):
+            "Avg: \(averageWeight.formatted(.number.precision(.fractionLength(1)))) lbs"
+        case .weightDiffBar:
+            "Per Weekday (Last 28 Days)"
+        }
+    }
+
+    var symbol: String {
+        switch chartType {
+        case .stepBar(_):
+            "figure.walk"
+        case .stepWeekdayPie:
+            "calendar"
+        case .weightLine(_), .weightDiffBar:
+            "figure"
         }
     }
 }
 
 #Preview {
-    ChartContainer(config: .init(title: "Text Title",
-                                 symbol: "figure.walk",
-                                 subtitle: "Text Subtitle",
-                                 context: .steps,
-                                 isNav: true)) {
+    ChartContainer(chartType: .weightDiffBar) {
         Text("Chart Goes Here")
             .frame(minHeight: 150)
     }
