@@ -10,10 +10,11 @@ import Charts
 
 struct StepPieChart: View {
     @State private var rawSelectedChartValue: Double? = 0
+    @State private var selectedDay: Date?
 
-    var chartData: [WeekdayChartData]
+    var chartData: [DateValueChartData]
 
-    var selectedWeekday: WeekdayChartData? {
+    var selectedWeekday: DateValueChartData? {
         guard let rawSelectedChartValue else { return nil }
         var total = 0.0
         return chartData.first {
@@ -23,18 +24,7 @@ struct StepPieChart: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Label("Averages", systemImage: "calendar")
-                    .font(.title3.bold())
-                    .foregroundStyle(.pink)
-
-                Text("Last 28 Days")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            .padding(.bottom, 12)
-
+        ChartContainer(chartType: .stepWeekdayPie) {
             Chart {
                 ForEach(chartData) { weekday in
                     SectorMark(angle: .value("Average Steps", weekday.value),
@@ -44,6 +34,8 @@ struct StepPieChart: View {
                     .foregroundStyle(.pink.gradient)
                     .cornerRadius(6)
                     .opacity(selectedWeekday?.date.weekdayInt == weekday.date.weekdayInt ? 1.0 : 0.3)
+                    .accessibilityLabel(weekday.date.weekdayTitle)
+                    .accessibilityValue("\(Int(weekday.value)) steps")
                 }
             }
             .chartAngleSelection(value: $rawSelectedChartValue.animation(.easeInOut))
@@ -62,27 +54,36 @@ struct StepPieChart: View {
                             VStack {
                                 Text(selectedWeekday.date.weekdayTitle)
                                     .font(.title3.bold())
-                                    .contentTransition(.identity)
-
+                                    .animation(.none)
                                 Text(selectedWeekday.value, format: .number.precision(.fractionLength(0)))
                                     .fontWeight(.medium)
                                     .foregroundStyle(.secondary)
                                     .contentTransition(.numericText())
                             }
                             .position(x: frame.midX, y: frame.midY)
+                            .accessibilityHidden(true)
                         }
+                    }
+                }
+                .overlay {
+                    if chartData.isEmpty {
+                        ChartEmptyView(systemImageName: "chart.bar",
+                                       title: "No Data",
+                                       description: "There is no step count data from the Health App")
                     }
                 }
             }
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.secondarySystemBackground))
+        .sensoryFeedback(.selection, trigger: selectedDay)
+        .onChange(of: selectedWeekday) { oldValue, newValue in
+            guard let oldValue, let newValue else { return }
+            if oldValue.date.weekdayInt != newValue.date.weekdayInt {
+                selectedDay = newValue.date
+            }
         }
     }
 }
 
 #Preview {
-    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: MockData.steps))
+    StepPieChart(chartData: ChartHelper.averageWeekdayCount(for: MockData.steps))
 }
