@@ -27,11 +27,13 @@ struct HealthDataListView: View {
 
     var body: some View {
         List(listData.reversed()) { data in
-            HStack {
-                Text(data.date, format: .dateTime.month().day().year())
-                Spacer()
+            LabeledContent {
                 Text(data.value, format: .number.precision(.fractionLength(metric == .steps ? 0 : 1)))
+            } label: {
+                Text(data.date, format: .dateTime.month().day().year())
+                    .accessibilityLabel(data.date.accessibilityDate)
             }
+            .accessibilityElement(children: .combine)
         }
         .navigationTitle(metric.title)
         .sheet(isPresented: $isShowingAddData) {
@@ -48,9 +50,7 @@ struct HealthDataListView: View {
         NavigationStack {
             Form {
                 DatePicker("Data", selection: $addDataDate, displayedComponents: .date)
-                HStack {
-                    Text(metric.title)
-                    Spacer()
+                LabeledContent(metric.title) {
                     TextField("Value", text: $valueToAdd)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 140)
@@ -75,45 +75,7 @@ struct HealthDataListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
-                        guard let valueToAdd = Double(valueToAdd) else {
-                            writeError = .invalidValue
-                            isShowingAlert = true
-                            return
-                        }
-                        Task {
-                            if metric == .steps {
-                                do {
-                                    // TODO: Input Validation. Use the onEditingChange in the TextField to turn the text
-                                    // red if there is an invlid number entered. 
-                                    try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd))
-                                    try await hkManager.fetchStepCount()
-                                    isShowingAddData = false
-                                } catch STError.authNotDetermined {
-                                    isShowingPermissionPriming = true
-                                } catch STError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
-                                }
-                            } else {
-                                do {
-                                    try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd))
-                                    try await hkManager.fetchWeights()
-                                    try await hkManager.fetchWeightForDifferentials()
-                                    isShowingAddData = false
-                                } catch STError.authNotDetermined {
-                                    isShowingPermissionPriming = true
-                                } catch STError.sharingDenied(let quantityType) {
-                                    writeError = .sharingDenied(quantityType: quantityType)
-                                    isShowingAlert = true
-                                } catch {
-                                    writeError = .unableToCompleteRequest
-                                    isShowingAlert = true
-                                }
-                            }
-                        }
+                        addDataToHealtKit()
                     }
                 }
 
@@ -122,6 +84,38 @@ struct HealthDataListView: View {
                         isShowingAddData = false
                     }
                 }
+            }
+        }
+    }
+
+    private func addDataToHealtKit() {
+        guard let valueToAdd = Double(valueToAdd) else {
+            writeError = .invalidValue
+            isShowingAlert = true
+            return
+        }
+        Task {
+            do {
+                if metric == .steps{
+                    try await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd))
+                    hkManager.stepData = try await hkManager.fetchStepCount()
+                } else {
+                    try await hkManager.addweightData(for: addDataDate, value: Double(valueToAdd))
+
+                    async let weightsForLineChart = hkManager.fetchWeights(daysBack: 28)
+                    async let weightsForDiffChart = hkManager.fetchWeights(daysBack: 29)
+
+                    hkManager.weightData = try await weightsForLineChart
+                    hkManager.weightDiffData =  try await weightsForDiffChart
+                }
+
+                isShowingAddData = false
+            } catch STError.sharingDenied(let quantityType) {
+                writeError = .sharingDenied(quantityType: quantityType)
+                isShowingAlert = true
+            } catch {
+                writeError = .unableToCompleteRequest
+                isShowingAlert = true
             }
         }
     }
