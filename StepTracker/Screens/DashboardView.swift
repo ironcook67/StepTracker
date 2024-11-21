@@ -23,6 +23,7 @@ enum HealthMetricContext: CaseIterable, Identifiable {
 }
 
 struct DashboardView: View {
+    @Environment(HealthKitData.self) private var hkData
     @Environment(HealthKitManager.self) private var hkManager
 
     @State private var isShowingPermissionPrimingSheet = false
@@ -45,11 +46,11 @@ struct DashboardView: View {
 
                     switch selectedStat {
                     case .steps:
-                        StepBarChart(chartData: ChartHelper.convertData(data: hkManager.stepData))
-                        StepPieChart(chartData: ChartHelper.averageWeekdayCount(for: hkManager.stepData))
+                        StepBarChart(chartData: ChartHelper.convertData(data: hkData.stepData))
+                        StepPieChart(chartData: ChartHelper.averageWeekdayCount(for: hkData.stepData))
                     case .weight:
-                        WeightLineChart(chartData:ChartHelper.convertData(data: hkManager.weightData))
-                        WeightDiffBarChart(chartData: ChartHelper.averageDailyWeightDiffs(for: hkManager.weightDiffData))
+                        WeightLineChart(chartData:ChartHelper.convertData(data: hkData.weightData))
+                        WeightDiffBarChart(chartData: ChartHelper.averageDailyWeightDiffs(for: hkData.weightDiffData))
                     }
                 }
             }
@@ -76,13 +77,14 @@ struct DashboardView: View {
     private func fetchHealthData() {
         Task {
             do {
+//              await hkManager.addSimulatorData()
                 async let steps = hkManager.fetchStepCount()
                 async let weightsForLineChart = hkManager.fetchWeights(daysBack: 28)
                 async let weightsForDiffChart = hkManager.fetchWeights(daysBack: 29)
 
-                hkManager.stepData = try await steps
-                hkManager.weightData = try await weightsForLineChart
-                hkManager.weightDiffData = try await weightsForDiffChart
+                hkData.stepData = try await steps
+                hkData.weightData = try await weightsForLineChart
+                hkData.weightDiffData = try await weightsForDiffChart
             } catch STError.authNotDetermined {
                 isShowingPermissionPrimingSheet = true
             } catch STError.noData {
@@ -98,5 +100,6 @@ struct DashboardView: View {
 
 #Preview {
     DashboardView()
+        .environment(HealthKitData())
         .environment(HealthKitManager())
 }
